@@ -30,7 +30,7 @@ class Main extends Component {
       return (
         <Home 
             dish={this.state.dishes.filter((dish) => dish.featured)[0]}
-            promotions={this.state.promotions.filter((promo) => promo.featured)[0]}
+            promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
             leader={this.state.leaders.filter((leader) => leader.featured)[0]} 
 
         />
