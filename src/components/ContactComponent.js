@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col, timeoutsShape } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class Contact extends Component {
@@ -11,8 +11,8 @@ class Contact extends Component {
             lastname: '',
             telnum: '',
             email: '',
-            agree: '',
-            contactType: '',
+            agree: 'false',
+            contactType: 'Tel.',
             message: ''
         }
 
@@ -77,11 +77,11 @@ class Contact extends Component {
                 </div>
                 <div className='row row-content'>
                     <div className="col-12">
-                        <h3>Send Your feedback</h3>
+                        <h3>Send us Your feedback</h3>
                     </div>
                     <div className="col-12 col-md-9">
                     <Form onSubmit={this.handleSubmit}>
-                        <FormGroup>
+                        <FormGroup row>
                             <Label htmlFor="firstname" md={2}>
                             First Name
                             </Label>
@@ -93,7 +93,7 @@ class Contact extends Component {
                                     />
                                 </Col>
                         </FormGroup>
-                        <FormGroup>
+                        <FormGroup row>
                             <Label htmlFor="lastname" md={2}>
                             Last Name
                             </Label>
@@ -104,7 +104,7 @@ class Contact extends Component {
                                     onChange={this.handleInputChange} />
                                 </Col>
                         </FormGroup>
-                        <FormGroup>
+                        <FormGroup row>
                             <Label htmlFor="telnum" md={2}>
                             Contact tel.
                             </Label>
@@ -115,7 +115,7 @@ class Contact extends Component {
                                     onChange={this.handleInputChange} />
                                 </Col>
                         </FormGroup>
-                        <FormGroup>
+                        <FormGroup row>
                             <Label htmlFor="email" md={2}>
                             Email
                             </Label>
@@ -148,7 +148,7 @@ class Contact extends Component {
                             </Col>
                         </FormGroup>
 
-                        <FormGroup>
+                        <FormGroup row>
                             <Label htmlFor="message" md={2}>
                             Your feedback
                             </Label>
