@@ -7,10 +7,21 @@ exports.ConfigureStore = void 0;
 
 var _redux = require("redux");
 
-var _reduser = require("./reduser");
+var _dishes = require("./dishes");
+
+var _comments = require("./comments");
+
+var _promotions = require("./promotions");
+
+var _leaders = require("./leaders");
 
 var ConfigureStore = function ConfigureStore() {
-  var store = (0, _redux.createStore)(_reduser.Reducer, _reduser.initialState);
+  var store = (0, _redux.createStore)((0, _redux.combineReducers)({
+    dishes: _dishes.Dishes,
+    comments: _comments.Comments,
+    promotions: _promotions.Promotions,
+    leaders: _leaders.Leaders
+  }));
   return store;
 };
 
