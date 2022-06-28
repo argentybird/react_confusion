@@ -45,7 +45,8 @@ var Dishes = function Dishes() {
     case ActionTypes.DISHES_FAILED:
       return _objectSpread({}, state, {
         isLoading: false,
-        errMess: action.payload
+        errMess: action.payload,
+        dishes: []
       });
 
     default:

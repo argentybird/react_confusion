@@ -5,11 +5,13 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addDishes = exports.dishesFailed = exports.dishesLoading = exports.fetchDishes = exports.addComment = void 0;
+exports.addPromos = exports.promosFailed = exports.promosLoading = exports.fetchPromos = exports.addComments = exports.commentsFailed = exports.fetchComments = exports.addDishes = exports.dishesFailed = exports.dishesLoading = exports.fetchDishes = exports.addComment = void 0;
 
 var ActionTypes = _interopRequireWildcard(require("./ActionTypes"));
 
 var _dishes = require("../shared/dishes");
+
+var _baseUrl = require("../shared/baseUrl");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
@@ -32,9 +34,11 @@ exports.addComment = addComment;
 var fetchDishes = function fetchDishes() {
   return function (dispatch) {
     dispatch(dishesLoading(true));
-    setTimeout(function () {
-      dispatch(addDishes(_dishes.DISHES));
-    }, 2000);
+    return fetch(_baseUrl.baseUrl + "dishes").then(function (response) {
+      return response.json();
+    }).then(function (dishes) {
+      return dispatch(addDishes(dishes));
+    });
   };
 };
 
@@ -65,3 +69,72 @@ var addDishes = function addDishes(dishes) {
 };
 
 exports.addDishes = addDishes;
+
+var fetchComments = function fetchComments() {
+  return function (dispatch) {
+    return fetch(_baseUrl.baseUrl + "comments").then(function (response) {
+      return response.json();
+    }).then(function (comments) {
+      return dispatch(addComments(comments));
+    });
+  };
+};
+
+exports.fetchComments = fetchComments;
+
+var commentsFailed = function commentsFailed(errmess) {
+  return {
+    type: ActionTypes.COMMENTS_FAILED,
+    payload: errmess
+  };
+};
+
+exports.commentsFailed = commentsFailed;
+
+var addComments = function addComments(comments) {
+  return {
+    type: ActionTypes.ADD_COMMENTS,
+    payload: comments
+  };
+};
+
+exports.addComments = addComments;
+
+var fetchPromos = function fetchPromos() {
+  return function (dispatch) {
+    dispatch(promosLoading(true));
+    return fetch(_baseUrl.baseUrl + "promotions").then(function (response) {
+      return response.json();
+    }).then(function (promos) {
+      return dispatch(addPromos(promos));
+    });
+  };
+};
+
+exports.fetchPromos = fetchPromos;
+
+var promosLoading = function promosLoading() {
+  return {
+    type: ActionTypes.PROMOS_LOADING
+  };
+};
+
+exports.promosLoading = promosLoading;
+
+var promosFailed = function promosFailed(errmess) {
+  return {
+    type: ActionTypes.PROMOS_FAILED,
+    payload: errmess
+  };
+};
+
+exports.promosFailed = promosFailed;
+
+var addPromos = function addPromos(promos) {
+  return {
+    type: ActionTypes.ADD_PROMOS,
+    payload: promos
+  };
+};
+
+exports.addPromos = addPromos;
