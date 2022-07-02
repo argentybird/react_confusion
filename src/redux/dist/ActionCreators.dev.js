@@ -35,9 +35,22 @@ var fetchDishes = function fetchDishes() {
   return function (dispatch) {
     dispatch(dishesLoading(true));
     return fetch(_baseUrl.baseUrl + "dishes").then(function (response) {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error("Error " + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, function (error) {
+      var errmess = new Error(error.message);
+      throw errmess;
+    }).then(function (response) {
       return response.json();
     }).then(function (dishes) {
       return dispatch(addDishes(dishes));
+    })["catch"](function (error) {
+      return dispatch(dishesFailed(error.message));
     });
   };
 };
@@ -73,9 +86,22 @@ exports.addDishes = addDishes;
 var fetchComments = function fetchComments() {
   return function (dispatch) {
     return fetch(_baseUrl.baseUrl + "comments").then(function (response) {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error("Error " + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, function (error) {
+      var errmess = new Error(error.message);
+      throw errmess;
+    }).then(function (response) {
       return response.json();
     }).then(function (comments) {
       return dispatch(addComments(comments));
+    })["catch"](function (error) {
+      return dispatch(commentsFailed(error.message));
     });
   };
 };
@@ -104,9 +130,22 @@ var fetchPromos = function fetchPromos() {
   return function (dispatch) {
     dispatch(promosLoading(true));
     return fetch(_baseUrl.baseUrl + "promotions").then(function (response) {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error("Error " + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, function (error) {
+      var errmess = new Error(error.message);
+      throw errmess;
+    }).then(function (response) {
       return response.json();
     }).then(function (promos) {
       return dispatch(addPromos(promos));
+    })["catch"](function (error) {
+      return dispatch(promosFailed(error.message));
     });
   };
 };
